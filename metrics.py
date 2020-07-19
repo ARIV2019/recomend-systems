@@ -46,7 +46,7 @@ def recall_at_k(recommended_list, bought_list, k):
 
 
 # решение через цикл
-def money_recall_at_k(recommended_list, bought_list, prices_recommended, prices_bought, k):
+def money_recall_at_k_2(recommended_list, bought_list, prices_recommended, prices_bought, k):
     bought_list = np.array(bought_list)
     recommended_list = np.array(recommended_list[:k])
     prices_recommended = np.array(prices_recommended[:k])
@@ -63,7 +63,7 @@ def money_recall_at_k(recommended_list, bought_list, prices_recommended, prices_
 
 
 # решение через скалярное произведение
-def money_recall_at_k_2(recommended_list, bought_list, prices_recommended, prices_bought, k):
+def money_recall_at_k(recommended_list, bought_list, prices_recommended, prices_bought, k):
     bought_list = np.array(bought_list)
     recommended_list = np.array(recommended_list[:k])
     prices_recommended = np.array(prices_recommended[:k])
@@ -107,8 +107,33 @@ def reciprocal_rank(recommended_list, bought_list):
     # your_code
     return result
 
+def precision(recommended_list, bought_list):
+    bought_list = np.array(bought_list)
+    recommended_list = np.array(recommended_list)
+
+    flags = np.isin(bought_list, recommended_list)
+
+    precision = flags.sum() / len(recommended_list)
+
+    return precision
 
 def precision_at_k(recommended_list, bought_list, k=5):
+    bought_list = np.array(bought_list)
+    recommended_list = np.array(recommended_list)
+    
+
+    bought_list = bought_list  # Тут нет [:k] !!
+    
+    if k < len(recommended_list):
+        recommended_list = recommended_list[:k]
+
+    flags = np.isin(bought_list, recommended_list)
+
+    precision = flags.sum() / len(recommended_list)
+
+    return precision
+
+def precision_at_k_1(recommended_list, bought_list, k=5):
     bought_list = np.array(bought_list)
     recommended_list = np.array(recommended_list[:k])
 
@@ -119,7 +144,7 @@ def precision_at_k(recommended_list, bought_list, k=5):
     return precision
 
 
-def money_precision_at_k_2(recommended_list, bought_list, prices_recommended, prices_bought, k):
+def money_precision_at_k(recommended_list, bought_list, prices_recommended, prices_bought, k):
     bought_list = np.array(bought_list)
     recommended_list = np.array(recommended_list[:k])
     prices_recommended = np.array(prices_recommended[:k])
@@ -132,7 +157,7 @@ def money_precision_at_k_2(recommended_list, bought_list, prices_recommended, pr
     return precision
 
 
-def money_precision_at_k(recommended_list, bought_list, prices_recommended, k):
+def money_precision_at_k_2(recommended_list, bought_list, prices_recommended, k):
     bought_list = np.array(bought_list)
     recommended_list = np.array(recommended_list[:k])
     prices_recommended = np.array(prices_recommended[:k])
