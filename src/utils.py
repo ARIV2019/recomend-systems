@@ -49,6 +49,12 @@ def prefilter_items(data, take_n_popular=5000, item_features=None):
 
     return data
 
+def items_weight (data):
+    
+    items_weights = data.groupby('item_id')['sales_value'].nunique().reset_index()
+    sum_ = np.log(items_weights['sales_value']).sum() 
+    items_weights['weight'] = np.log(items_weights["sales_value"]) / sum_
+    items_weights.sort_values('weight', ascending=False, inplace=True)
 
-
+    return items_weights
     
